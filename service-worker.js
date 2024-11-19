@@ -5,11 +5,12 @@ const urlsToCache = [
     "/manifest.json",
     "/assets/icons/icon-192x192.png",
     "/assets/icons/icon-512x512.png",
-    "https://cdn.tailwindcss.com" // CDN dependencies
+    "/offline.html"
 ];
 
 // Install event
 self.addEventListener("install", event => {
+    self.skipWaiting(); // Langsung aktifkan service worker
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
             console.log("Opened cache");
@@ -22,7 +23,9 @@ self.addEventListener("install", event => {
 self.addEventListener("fetch", event => {
     event.respondWith(
         caches.match(event.request).then(response => {
-            return response || fetch(event.request);
+            return response || fetch(event.request).catch(() => {
+                return caches.match('/offline.html');
+            });
         })
     );
 });
