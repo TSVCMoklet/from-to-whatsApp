@@ -1,61 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1d4ed8" />
     <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/assets/icons/icon-192x192.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>FORM Sparing TSVC</title>
-
-  </head>
-  <body>
-    <div
-      class="max-w-xl w-full mx-auto text-center min-h-screen flex flex-col items-center justify-center"
-    >
-      <h1 class="text-2xl font-bold sm:text-3xl">Form Sparing</h1>
-      <form
-        action="#"
-        class="mx-auto mb-0 mt-8 max-w-md space-y-4"
-        onsubmit="sendMessageToWhatsapp()"
-      >
-        <input
-          type="text"
-          class="w-full rounded-lg border border-gray-300 p-4 pe-12 text-sm shadow-sm"
-          placeholder="masukan asal sekolah"
-          id="nama"
-        />
-        <input
-          type="text"
-          class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
-          placeholder="ketik pesan anda..."
-          id="pesan"
-        />
-        <button
-          type="submit"
-          class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white w-full"
-        >
-          Kirim Pesan
-        </button>
-      </form>
+</head>
+<body>
+    <div class="max-w-xl w-full mx-auto text-center min-h-screen flex flex-col items-center justify-center">
+        <h1 class="text-2xl font-bold sm:text-3xl">Form Sparing</h1>
+        <form action="#" class="mx-auto mb-0 mt-8 max-w-md space-y-4" onsubmit="sendMessageToWhatsapp()">
+            <input
+                type="text"
+                class="w-full rounded-lg border border-gray-300 p-4 pe-12 text-sm shadow-sm"
+                placeholder="masukan asal sekolah"
+                id="nama"
+            />
+            <input
+                type="text"
+                class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                placeholder="ketik pesan anda..."
+                id="pesan"
+            />
+            <button
+                type="submit"
+                class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white w-full"
+            >
+                Kirim Pesan
+            </button>
+        </form>
     </div>
     <script>
-      function sendMessageToWhatsapp() {
-        const urlToWhatsapp = `https://wa.me/6285232023837?text=Halo, nama saya ${nama.value}, ${pesan.value}`;
+        function sendMessageToWhatsapp() {
+            const urlToWhatsapp = `https://wa.me/6285232023837?text=Halo, nama saya ${nama.value}, ${pesan.value}`;
+            window.open(urlToWhatsapp, "_blank");
+        }
 
-        window.open(urlToWhatsapp, "_blank");
-      }
- 
-
-      
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log('Service Worker Registered'))
+                .catch(err => console.error('Service Worker Registration Failed', err));
+        }
     </script>
-    <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(() => console.log('Service Worker Registered'))
-            .catch(err => console.error('Service Worker Registration Failed', err));
-    }
-</script>
-
-    
-  </body>
+</body>
 </html>
